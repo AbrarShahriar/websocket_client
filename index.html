@@ -9,9 +9,8 @@
   <body>
     <button></button>
 
+    <script src="https://www.unpkg.com/socket.io-client@2.2.0/dist/socket.io.js"></script>
     <script type="module">
-      import { io } from "https://cdn.socket.io/2.2.0/socket.io.esm.min.js";
-
       const socket = io("nodewebsocketforesp32-production.up.railway.app");
 
       const btn = document.querySelector("button");
