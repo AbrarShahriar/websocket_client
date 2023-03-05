@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button></button>
+
+    <script type="module">
+      import { io } from "https://cdn.socket.io/4.6.1/socket.io.esm.min.js";
+
+      const socket = io("nodewebsocketforesp32-production.up.railway.app:4001");
+
+      const btn = document.querySelector("button");
+      const EVENTS = {
+        LED_STATE_CHANGE: "ledState",
+      };
+
+      let ledState;
+      socket.on(EVENTS.LED_STATE_CHANGE, (value) => {
+        ledState = value;
+        updateUi(ledState);
+      });
+
+      btn.addEventListener("click", () => {
+        ledState = !ledState;
+        updateUi(ledState);
+        socket.emit(EVENTS.LED_STATE_CHANGE, ledState);
+      });
+
+      function updateUi(ledState) {
+        if (ledState) {
+          btn.innerText = "Turn Off";
+        } else {
+          btn.innerText = "Turn On";
+        }
+      }
+    </script>
+  </body>
+</html>
